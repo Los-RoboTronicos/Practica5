@@ -33,7 +33,7 @@ Sintaxis: Pass Punto1 Punto2
 Escribir una palabra de al menos 4 letras utilizando el menor numero de puntos por letra y optimizando los comandos.
 
 ## Desarrollo
-Antes de programar el brazo robótico para escribir la palabra, se delimita un espacio específico donde el robot deberá operar. Esto ayuda a asegurar que las letras caben dentro de un marco determinado, evitando que el brazo salga de los límites o realice movimientos innecesarios (Figura 1).
+Antes de programar el brazo robótico para escribir la palabra, se delimita un espacio específico para las letras, permitiendo generar así una escritura uniforme en celdas especificas por letra. (Figura 1).
 La selección de un espacio de 30mm x 15mm no solo reduce el consumo de tiempo en la escritura, sino que también simula las limitaciones que suelen existir en la robótica industrial, donde se trabaja con áreas pequeñas y específicas.
 
 ![image](https://github.com/user-attachments/assets/f3356bac-1ecf-4e13-b2b5-4bdb16f92df9)
