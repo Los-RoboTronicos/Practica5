@@ -51,23 +51,27 @@ Home: El comando mueve el brazo robótico a la posición inicial o base.
 Go Wsup: Establece la posición de inicio antes de comenzar a escribir, conocida como Word Start Up Position.
 
 2. Escribir la letra F:
-Jump3CF WordStart, Fmedium, EndFmedium: Utiliza el comando Jump3CF, que permite realizar un movimiento con interpolación en tres puntos para llevar el brazo a la posición inicial de la letra "F" y hacer el trazado medio de la letra.
-Move EndFmedium +Z(10): Después de escribir la parte principal de la "F", el brazo se desplaza hacia arriba en el eje Z para evitar colisiones al reposicionarse.
-Go Fmedium +Z(10): Mueve el brazo a otra parte de la letra.
-Move Fmedium: Realiza el siguiente trazado de la letra "F".
+Jump3CP WordStart, Fmedium, EndFmedium: Utiliza el comando Jump3CF, que permite realizar un movimiento con interpolación en tres puntos para llevar el brazo a la posición inicial de la letra "F" y hacer el trazado medio de la letra.
+Move EndFmedium +Z(10): Después de escribir la parte principal de la "F", el brazo se desplaza hacia arriba en el eje Z para evitar trazos indeceados al reposicionarse.
+Go Fmedium +Z(10): Mueve el brazo al punto medio de la letra.
+Move Fmedium: se posiciona para realizar el siguiente trazo en la "F".
+Jump3CF Fmedium, Fupper, Endfup: Usa tres puntos para trazar la parte restante superior de la seccion en cuestion.
 
-3. Escribir la letra U:
-Jump3CF Fmedium, Fupper, Endfup: Usa tres puntos para moverse al principio de la "U".
-Jump3CF Endfup +Z(10), Up1 +Z(10), Up2 +Z(10), Uup1: Describe la trayectoria de la "U" utilizando movimientos en el eje Z para evitar colisiones.
+4. Escribir la letra U:
+Jump3CP Endfup +Z(10), Uup1 +Z(10), Uup1: Se posiciona al comienzo de la letra "U" utilizando movimientos en el eje Z para evitar colisiones.
+Arc3 Umedium, Uup2: Utiliza un movimiento circular para trazar la "U" utilizando el punto inferior como pivote.
 
 4. Escribir la letra C:
-Arc3 Umedium, Uup2: Utiliza un movimiento circular para completar la parte superior de la "U" y posicionarse para comenzar la "C".
-Jump3CF Uup2 +Z(10), Cup +Z(10), Cup: Similar a la "F", utiliza tres puntos para formar la "C".
+Jump3CP Uup2 +Z(10), Cup +Z(10), Cup: Nuevamente se coloca al comienzo de la letraa "C" buscando evitar colisiones.
+Arc3 Cmedium, Cdown: Traza la letra "C" bajo el mismo concepto de dibujo de la letra "U"
 
-5. Escribir la letra K:
+6. Escribir la letra K:
 Pass Cdown +Z(10): Prepara la trayectoria para la "K".
-Go Kupl +Z(10): Mueve el brazo al inicio de la letra "K".
-Jump3CF Kupl, Kmedium, Kdigup: Este comando permite realizar el trazado de la letra "K" en tres puntos.
+Go Kupl +Z(10): Mueve el brazo sobre el inicio de la letra "K".
+Jump3CPP Kupl, Kmedium, Kdigup: Realiza el trazo de la parte superior de la "K".
+Jump3CP Kdigup +Z(10),Kmedium + Z(10), Kmedium: Se recoloca en el punto medio de la K para el trazado de la parte inferior.
+Jump3CP Kdown, Kdown +Z(10), Kmedium +Z(10): Traza la parte restante de la línea vertical de la letra y se reposiciona para el elemento restante.
+Jump3CP Kmedium, Kdigdown, Wsup: Dibuja la última diagonal y se coloca en posición para reescribir la palabra.
 
 ![image](https://github.com/user-attachments/assets/a22f3a62-ca08-484f-80e0-3d2a86723627)
 
@@ -80,12 +84,12 @@ Tras la simulacion del codigo se procedio a su implementacion fisica logrando el
 
 ![image](https://github.com/user-attachments/assets/4a46b816-d5dd-438d-a9cd-214ce6c91344)
 
-El objetivo se logró exitosamente, sin embargo, cabe aclarar que el espacio pensado entre letras fue muy pequeño, dando la impresión de que no había, y el grosor del plumón no permitió la correcta apreciación de las letras.
+El brazo fue capaz de trazar cada una de las letras, sin embargo, se debe aclarar que el espacio programado entre letras fue muy pequeño en comparación al grosor de la punta del plumón, además de que el arco descrito en la letra "U" excedia la anchura designada para cada letra. Lo anterior aunado a las irregularidades en el relive de el pizarrón provocaron trazos incompletos y la sobreposicioón de las letras afectando negativamente al entendimiento y apreciación de la palabra en cuestión.
 
 ## Conclusiones
 - **Uriel Vladimir Alvarez Tapia:** Esta practica permitió evidenciar la utilidad de comandos de movimientos distintos a l comando Go,  reduciendo el tamaño de los códigos involucrados en las soluciones.
 Sin embargo, es necesario considerar la sintaxis y aún más importante, el comportamiento de los respectivos comandos, así como las condiciones físicas del entorno. Ya que una mala comprensión de los movimientos propicia el riesgo del equipo y de los operadores.
-Lo anterior se evidencia en que las letras en las palabras no contaban con la separación planeada ya que esta era inferior a la requerida por causa de la punta del plumón. De igual forma, la curva descrita por el comando pass  describe trayectorias que se aproximan a una circunferencia y que, por lo tanto, se encuentran fuera del espacio designado a cada letra, haciendo especial evidencia de esto en la letra U.
+Lo anterior se evidencia en que las letras en las palabras no contaban con la separación planeada ya que esta era inferior a la requerida por causa de la punta del plumón. De igual forma, la curva descrita por el comando pass  describe trayectorias que se aproximan a una circunferencia y que, por lo tanto, se encuentran fuera del espacio designado a cada letra, haciendo especial evidencia de esto en la letra "U".
 - **Miguel Angel Castañeda Garcia:** El conocimiento de las trayectorias que define cada uno de los comandos que se mencionaron resultó de suma importancia para lograr definir de manera correcta las direcciones que debía seguir el robot para escribir cada letra de la palabra. 
 Por otro lado, el ajuste del marcador sobre la pizarra generó ciertos inconvenientes al momento de realizar el trazado, además de que el espacio considerado para cada una de las letras de la palabra fue demasiado pequeño, sin embargo, se estuvo un buen resultado sobre la palabra planteada. 
 
